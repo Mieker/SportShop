@@ -1,11 +1,12 @@
 package com.mieker.SportShop.infrastruckture.controller;
 
 import com.mieker.SportShop.application.dto.order.OrderDto;
-import com.mieker.SportShop.application.dto.order.RequestOrderDto;
+import com.mieker.SportShop.application.dto.order.request.RequestOrderDto;
 import com.mieker.SportShop.application.dto.user.UserDto;
 import com.mieker.SportShop.application.service.AuthorizationService;
 import com.mieker.SportShop.application.service.OrderService;
 import com.mieker.SportShop.domain.model.user.Role;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -22,7 +23,7 @@ public class OrderController {
 
     @PostMapping
     public ResponseEntity<OrderDto> createOrder(
-            @RequestHeader("Authorization") String authorizationHeader, @RequestBody RequestOrderDto order) {
+            @RequestHeader("Authorization") String authorizationHeader, @Valid @RequestBody RequestOrderDto order) {
         UserDto userDto = authorizationService.authorizeUser(authorizationHeader, List.of(Role.ADMIN, Role.CUSTOMER));
         return ResponseEntity.ok(orderService.createOrder(order, userDto.getId()));
     }
@@ -36,6 +37,8 @@ public class OrderController {
 
     @DeleteMapping("/{orderId}")
     public ResponseEntity<String> deleteOrder(
+            //TODO: validate for orderId - blank, null, etc.
+
             @RequestHeader("Authorization") String authorizationHeader, @PathVariable String orderId) {
         authorizationService.authorizeUser(authorizationHeader, List.of(Role.ADMIN));
         orderService.deleteOrder(orderId);

@@ -1,6 +1,6 @@
 package com.mieker.SportShop.application.service;
 
-import com.mieker.SportShop.application.dto.order.RequestOrderDto;
+import com.mieker.SportShop.application.dto.order.request.RequestOrderDto;
 import com.mieker.SportShop.application.dto.order.OrderDto;
 import com.mieker.SportShop.application.dto.user.UserDto;
 

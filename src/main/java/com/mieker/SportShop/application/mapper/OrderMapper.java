@@ -3,7 +3,7 @@ package com.mieker.SportShop.application.mapper;
 import com.mieker.SportShop.application.dto.order.OrderDto;
 import com.mieker.SportShop.application.dto.order.OrderItemDto;
 import com.mieker.SportShop.application.dto.order.ProductDto;
-import com.mieker.SportShop.application.dto.order.RequestOrderDto;
+import com.mieker.SportShop.application.dto.order.request.RequestOrderDto;
 import com.mieker.SportShop.application.exception.OrderNotFoundException;
 import com.mieker.SportShop.domain.model.order.Order;
 import com.mieker.SportShop.domain.model.order.OrderItem;
@@ -12,7 +12,6 @@ import com.mieker.SportShop.infrastruckture.repository.ProductRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
