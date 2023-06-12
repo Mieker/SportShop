@@ -69,7 +69,6 @@ public class OrderMapper {
     }
 
     public List<OrderDto> mapOrders(List<Order> orders) {
-        //TODO check is it works properly
         return orders.stream().map(this::map).toList();
     }
 

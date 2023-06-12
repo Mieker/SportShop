@@ -12,7 +12,6 @@ import lombok.Setter;
 public class RequestOrderItemDto {
 
     @NotBlank(message = "Please provide valid product Id.")
-    //TODO: create validation for non existing product (id)
     private String productId;
 
     @NotNull(message = "Please set number of product quantity.")

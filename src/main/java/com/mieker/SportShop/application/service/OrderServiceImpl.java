@@ -4,6 +4,7 @@ import com.mieker.SportShop.application.dto.order.OrderDto;
 import com.mieker.SportShop.application.dto.order.request.RequestOrderDto;
 import com.mieker.SportShop.application.dto.user.UserDto;
 import com.mieker.SportShop.application.exception.NotSupportedRoleException;
+import com.mieker.SportShop.application.exception.OrderNotFoundException;
 import com.mieker.SportShop.application.mapper.OrderMapper;
 import com.mieker.SportShop.domain.model.order.Order;
 import com.mieker.SportShop.domain.model.user.Role;
@@ -13,6 +14,7 @@ import org.apache.logging.log4j.util.Strings;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 @Service
@@ -31,12 +33,17 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public void deleteOrder(String orderId) {
-        orderRepository.deleteById(orderId);
+        Optional<Order> order = orderRepository.findById(orderId);
+        if (order.isPresent()) {
+            orderRepository.deleteById(orderId);
+        } else {
+            throw new OrderNotFoundException("Order with id: " + orderId + " not found.");
+        }
     }
 
     @Override
     public List<OrderDto> getOrders(UserDto user, String customerId) {
-        String userId= user.getId();
+        String userId = user.getId();
         Set<Role> roles = user.getAuthorities();
 
         if (roles.contains(Role.ADMIN)) {
