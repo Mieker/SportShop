@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/order")
+@RequestMapping("/api/orders")
 @RequiredArgsConstructor
 public class OrderController {
 
@@ -38,6 +38,7 @@ public class OrderController {
     @DeleteMapping("/{orderId}")
     public ResponseEntity<String> deleteOrder(
             //TODO: validate for orderId - blank, null, etc.
+            //TODO: check proper id or throw exception - message that non existing order were deleted
 
             @RequestHeader("Authorization") String authorizationHeader, @PathVariable String orderId) {
         authorizationService.authorizeUser(authorizationHeader, List.of(Role.ADMIN));

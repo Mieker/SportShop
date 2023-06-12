@@ -4,6 +4,7 @@ import com.mieker.SportShop.application.dto.order.OrderDto;
 import com.mieker.SportShop.application.dto.order.OrderItemDto;
 import com.mieker.SportShop.application.dto.order.ProductDto;
 import com.mieker.SportShop.application.dto.order.request.RequestOrderDto;
+import com.mieker.SportShop.application.dto.order.request.RequestOrderItemDto;
 import com.mieker.SportShop.application.exception.OrderNotFoundException;
 import com.mieker.SportShop.domain.model.order.Order;
 import com.mieker.SportShop.domain.model.order.OrderItem;
@@ -12,6 +13,7 @@ import com.mieker.SportShop.infrastruckture.repository.ProductRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -24,8 +26,25 @@ public class OrderMapper {
     public Order map(RequestOrderDto requestOrderDto) {
         Order order = new Order();
         order.setCustomerId(requestOrderDto.getCustomerId());
+        order.setOrderItems(map(requestOrderDto.getOrderItems()));
         return order;
     }
+
+    private List<OrderItem> map(List<RequestOrderItemDto> orderItemDtoList) {
+        List<OrderItem> orderItems = new ArrayList<>();
+        for (RequestOrderItemDto orderItemDto : orderItemDtoList) {
+            orderItems.add(map(orderItemDto));
+        }
+        return orderItems;
+    }
+
+    private OrderItem map(RequestOrderItemDto orderItemDto) {
+        OrderItem orderItem = new OrderItem();
+        orderItem.setQuantity(orderItemDto.getQuantity());
+        orderItem.setProductId(orderItemDto.getProductId());
+        return orderItem;
+    }
+
 
     public OrderDto map(Order order) {
         return new OrderDto(order.getId(), order.getCustomerId(), mapOrderItems(order.getOrderItems()));
