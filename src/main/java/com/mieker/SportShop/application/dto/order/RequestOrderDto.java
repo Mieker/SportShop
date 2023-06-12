@@ -7,7 +7,7 @@ import java.util.List;
 
 @Getter
 @Setter
-public class CreateOrderDto {
+public class RequestOrderDto {
 
     private String customerId;
     private List<OrderItemDto> orderItems;
