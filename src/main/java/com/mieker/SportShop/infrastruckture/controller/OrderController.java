@@ -37,9 +37,6 @@ public class OrderController {
 
     @DeleteMapping("/{orderId}")
     public ResponseEntity<String> deleteOrder(
-            //TODO: validate for orderId - blank, null, etc.
-            //TODO: check proper id or throw exception - message that non existing order were deleted
-
             @RequestHeader("Authorization") String authorizationHeader, @PathVariable("orderId") String orderId) {
         authorizationService.authorizeUser(authorizationHeader, List.of(Role.ADMIN));
         orderService.deleteOrder(orderId);
