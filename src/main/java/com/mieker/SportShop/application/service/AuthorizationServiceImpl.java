@@ -36,8 +36,14 @@ public class AuthorizationServiceImpl implements AuthorizationService {
         String credentials = new String(Base64.getDecoder().decode(encodedCredentials), StandardCharsets.UTF_8);
         String[] usernameAndPassword = credentials.split(":");
 
-        String username = usernameAndPassword[0];
-        String password = usernameAndPassword[1];
+        String username;
+        String password;
+        try {
+            username = usernameAndPassword[0];
+            password = usernameAndPassword[1];
+        } catch (Exception e) {
+            throw new AuthenticationException("Incorrect user credentials.");
+        }
 
         User user = userRepository.findByUsername(username);
         if (null == user) {
