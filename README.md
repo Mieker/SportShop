@@ -21,6 +21,20 @@ To build and test this service you need to run belows commands:
 ```
 mvn test
 ```
+Mongo DB will be populated automatically on first run of docker container.
+Authorization for provided users:
+
+login: Christina
+password: 1234christina
+role: ADMIN
+
+login: John
+password: JohnnyBGood
+role: CUSTOMER
+
+login: Laszlo
+password: letMeIn!
+role: CUSTOMER
 
 ## Swagger / OpenAPI
 Swagger UI is available at `http://localhost:8050/api/orders/swagger` \

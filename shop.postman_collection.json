@@ -1,0 +1,139 @@
+{
+	"info": {
+		"_postman_id": "36cdc403-e970-4aa5-81d4-03be9b76e0ae",
+		"name": "shop",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "getOrdersByConsumerId",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "JohnnyBGood",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "John",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8050/api/orders?customerId=user1",
+					"host": [
+						"localhost"
+					],
+					"port": "8050",
+					"path": [
+						"api",
+						"orders"
+					],
+					"query": [
+						{
+							"key": "customerId",
+							"value": "user1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "createOrder",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "JohnnyBGood",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "John",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"orderItems\": [\r\n        {\r\n            \"productId\": \"pball1\",\r\n            \"quantity\": \"1\"\r\n        },\r\n        {\r\n            \"productId\": \"pbicycle1\",\r\n            \"quantity\": 4\r\n        },\r\n        {\r\n            \"productId\": \"prope1\",\r\n            \"quantity\": 4\r\n        }\r\n    ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8050/api/orders",
+					"host": [
+						"localhost"
+					],
+					"port": "8050",
+					"path": [
+						"api",
+						"orders"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "deleteOrderById",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "1234christina",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "Christina",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "localhost:8050/api/orders/6488e86c3a250d7080c97687",
+					"host": [
+						"localhost"
+					],
+					"port": "8050",
+					"path": [
+						"api",
+						"orders",
+						"6488e86c3a250d7080c97687"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
