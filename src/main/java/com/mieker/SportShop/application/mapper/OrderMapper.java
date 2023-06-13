@@ -6,6 +6,7 @@ import com.mieker.SportShop.application.dto.order.ProductDto;
 import com.mieker.SportShop.application.dto.order.request.RequestOrderDto;
 import com.mieker.SportShop.application.dto.order.request.RequestOrderItemDto;
 import com.mieker.SportShop.application.exception.OrderNotFoundException;
+import com.mieker.SportShop.application.exception.ProductNotFoundException;
 import com.mieker.SportShop.domain.model.order.Order;
 import com.mieker.SportShop.domain.model.order.OrderItem;
 import com.mieker.SportShop.domain.model.order.Product;
@@ -41,8 +42,13 @@ public class OrderMapper {
     private OrderItem map(RequestOrderItemDto orderItemDto) {
         OrderItem orderItem = new OrderItem();
         orderItem.setQuantity(orderItemDto.getQuantity());
-        orderItem.setProductId(orderItemDto.getProductId());
-        return orderItem;
+        Optional<Product> productFromRequest = productRepository.findById(orderItemDto.getProductId());
+        if (productFromRequest.isPresent()) {
+            orderItem.setProductId(orderItemDto.getProductId());
+            return orderItem;
+        } else {
+            throw new ProductNotFoundException("Product with id: " + orderItem.getProductId() + " doesn't exists.");
+        }
     }
 
 
@@ -60,7 +66,7 @@ public class OrderMapper {
         if (productOptional.isPresent()) {
             return new OrderItemDto(map(productOptional.get()), quantity);
         } else {
-            throw new OrderNotFoundException("Cannot get order with id: " + orderItem.getProductId());
+            throw new OrderNotFoundException("Order corrupted because product with id " + orderItem.getProductId() + " doesn't exists.");
         }
     }
 
