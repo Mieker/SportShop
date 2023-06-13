@@ -1,0 +1,31 @@
+version: '3.1'
+
+services:
+
+  mongo:
+    image: mongo
+    restart: always
+    ports:
+      - 27017:27017
+    environment:
+      MONGO_INITDB_DATABASE: shop
+      MONGO_INITDB_ROOT_USERNAME: mongokeeper
+      MONGO_INITDB_ROOT_PASSWORD: mySecret!
+    volumes:
+      - ./src/main/resources/db/populate_data.js:/docker-entrypoint-initdb.d/populate_data.js
+    networks:
+      - sportshop-network
+
+  sportshop-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - 8050:8050
+    depends_on:
+      - mongo
+    networks:
+      - sportshop-network
+
+networks:
+  sportshop-network:
