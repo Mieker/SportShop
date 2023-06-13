@@ -6,6 +6,7 @@ import com.mieker.SportShop.application.dto.user.UserDto;
 import com.mieker.SportShop.application.service.AuthorizationService;
 import com.mieker.SportShop.application.service.OrderService;
 import com.mieker.SportShop.domain.model.user.Role;
+import com.mieker.SportShop.infrastruckture.swagger.SwaggerGetOrders;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -28,6 +29,7 @@ public class OrderController {
         return ResponseEntity.ok(orderService.createOrder(order, userDto.getId()));
     }
 
+    @SwaggerGetOrders
     @GetMapping
     public ResponseEntity<List<OrderDto>> getOrders(
             @RequestHeader("Authorization") String authorizationHeader, @RequestParam String customerId) {
